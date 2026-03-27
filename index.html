@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respire com o Baiacu</title>
+    <title>Baiacu - Respiração Visual</title>
     <style>
+        /* Centralização total da tela */
         body {
             margin: 0;
             display: flex;
@@ -12,25 +13,24 @@
             align-items: center;
             height: 100vh;
             background-color: #e0f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
 
         .container {
-            text-align: center;
+            position: relative;
         }
 
-        /* O Baiacu */
+        /* O Corpo do Baiacu */
         .pufferfish {
             width: 150px;
             height: 120px;
             background-color: #ffeb3b;
             border-radius: 50%;
             position: relative;
-            margin: 0 auto;
             border: 4px solid #fbc02d;
             box-shadow: inset -10px -10px 0 rgba(0,0,0,0.05);
-            /* Animação Principal */
+            
+            /* Animação: Sobe/Infla e Desce/Esvazia */
             animation: breathe 8s ease-in-out infinite;
         }
 
@@ -46,6 +46,7 @@
         }
         .eye.left { left: 25%; }
         .eye.right { right: 25%; }
+        
         .eye::after {
             content: '';
             width: 8px;
@@ -57,7 +58,7 @@
             left: 5px;
         }
 
-        /* Barbatanas */
+        /* Barbatanas Laterais */
         .fin {
             width: 30px;
             height: 20px;
@@ -69,45 +70,28 @@
         .fin.left { left: -25px; transform: rotate(-30deg); }
         .fin.right { right: -25px; transform: rotate(30deg); }
 
-        /* Espinhos (simbolizados por pontinhos) */
+        /* Detalhes de Textura (Espinhos) */
         .pufferfish::before {
             content: "⋮⋮⋮";
             position: absolute;
-            bottom: 10px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             color: #fbc02d;
-            font-size: 20px;
+            font-size: 22px;
+            opacity: 0.7;
         }
 
-        /* Texto de instrução */
-        .instruction {
-            margin-top: 50px;
-            font-size: 1.5rem;
-            color: #00796b;
-            font-weight: bold;
-        }
-
-        /* Keyframes da Respiração */
+        /* Animação Fluida */
         @keyframes breathe {
             0%, 100% {
-                transform: translateY(50px) scale(1);
+                transform: translateY(60px) scale(1);
                 background-color: #fff176;
             }
             50% {
-                transform: translateY(-50px) scale(1.8);
+                transform: translateY(-60px) scale(1.8);
                 background-color: #ffeb3b;
             }
-        }
-
-        .status::after {
-            content: "Inspire...";
-            animation: textUpdate 8s infinite;
-        }
-
-        @keyframes textUpdate {
-            0%, 100% { content: "Expire devagar..."; opacity: 0.5; }
-            40%, 60% { content: "Inspire profundamente..."; opacity: 1; }
         }
     </style>
 </head>
@@ -120,18 +104,7 @@
             <div class="fin left"></div>
             <div class="fin right"></div>
         </div>
-        <div class="instruction status"></div>
     </div>
 
-    <script>
-        // Você pode usar JS para mudar a velocidade conforme o usuário se acalma
-        const fish = document.querySelector('.pufferfish');
-        
-        // Exemplo: Tornar a respiração ainda mais lenta após 30 segundos
-        setTimeout(() => {
-            fish.style.animationDuration = '10s';
-            console.log("Ritmo acalmado.");
-        }, 30000);
-    </script>
 </body>
 </html>
