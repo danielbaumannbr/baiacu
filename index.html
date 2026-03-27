@@ -1,200 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Respire com o Baiacu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respire com o Baiacu</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
 
-<style>
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: radial-gradient(circle at center, #b2ebf2, #4dd0e1);
-    font-family: sans-serif;
-}
+        .container {
+            text-align: center;
+        }
 
-/* Container */
-.container {
-    text-align: center;
-}
+        /* O Baiacu */
+        .pufferfish {
+            width: 150px;
+            height: 120px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            border: 4px solid #fbc02d;
+            box-shadow: inset -10px -10px 0 rgba(0,0,0,0.05);
+            /* Animação Principal */
+            animation: breathe 8s ease-in-out infinite;
+        }
 
-/* Baiacu */
-.pufferfish {
-    width: 160px;
-    height: 140px;
-    border-radius: 50%;
-    position: relative;
-    margin: 0 auto;
-    
-    /* Gradiente mais realista */
-    background: radial-gradient(circle at 30% 30%, #fff59d, #fdd835);
-    
-    border: 3px solid #fbc02d;
-    
-    /* Sombra externa + interna */
-    box-shadow: 
-        0 10px 25px rgba(0,0,0,0.2),
-        inset -15px -15px 25px rgba(0,0,0,0.1),
-        inset 10px 10px 20px rgba(255,255,255,0.4);
+        /* Olhos */
+        .eye {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 30%;
+            border: 2px solid #333;
+        }
+        .eye.left { left: 25%; }
+        .eye.right { right: 25%; }
+        .eye::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
 
-    animation: breathe 8s ease-in-out infinite;
-}
+        /* Barbatanas */
+        .fin {
+            width: 30px;
+            height: 20px;
+            background: #fbc02d;
+            position: absolute;
+            top: 50%;
+            border-radius: 50%;
+        }
+        .fin.left { left: -25px; transform: rotate(-30deg); }
+        .fin.right { right: -25px; transform: rotate(30deg); }
 
-/* Olhos */
-.eye {
-    width: 22px;
-    height: 22px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 35%;
-    border: 2px solid #333;
-}
+        /* Espinhos (simbolizados por pontinhos) */
+        .pufferfish::before {
+            content: "⋮⋮⋮";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fbc02d;
+            font-size: 20px;
+        }
 
-.eye.left { left: 25%; }
-.eye.right { right: 25%; }
+        /* Texto de instrução */
+        .instruction {
+            margin-top: 50px;
+            font-size: 1.5rem;
+            color: #00796b;
+            font-weight: bold;
+        }
 
-/* Pupila com movimento */
-.eye::after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    background: #222;
-    border-radius: 50%;
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    animation: look 6s infinite;
-}
+        /* Keyframes da Respiração */
+        @keyframes breathe {
+            0%, 100% {
+                transform: translateY(50px) scale(1);
+                background-color: #fff176;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.8);
+                background-color: #ffeb3b;
+            }
+        }
 
-/* Boca */
-.mouth {
-    width: 30px;
-    height: 20px;
-    border-bottom: 4px solid #333;
-    border-radius: 0 0 50% 50%;
-    position: absolute;
-    bottom: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .status::after {
+            content: "Inspire...";
+            animation: textUpdate 8s infinite;
+        }
 
-/* Barbatanas */
-.fin {
-    width: 35px;
-    height: 25px;
-    background: #fbc02d;
-    position: absolute;
-    top: 50%;
-    border-radius: 50%;
-    opacity: 0.9;
-}
-
-.fin.left {
-    left: -25px;
-    animation: finMove 2s infinite ease-in-out;
-}
-
-.fin.right {
-    right: -25px;
-    animation: finMove 2s infinite ease-in-out reverse;
-}
-
-/* Espinhos (mais naturais) */
-.spike {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #fbc02d;
-    border-radius: 50%;
-    opacity: 0.8;
-}
-
-/* Distribuição dos espinhos */
-.spike:nth-child(1) { top: 10%; left: 50%; }
-.spike:nth-child(2) { top: 20%; left: 20%; }
-.spike:nth-child(3) { top: 20%; right: 20%; }
-.spike:nth-child(4) { bottom: 15%; left: 30%; }
-.spike:nth-child(5) { bottom: 15%; right: 30%; }
-
-/* Texto */
-.instruction {
-    margin-top: 50px;
-    font-size: 1.5rem;
-    color: #00695c;
-    font-weight: bold;
-}
-
-/* Respiração */
-@keyframes breathe {
-    0%, 100% {
-        transform: translateY(40px) scale(1);
-    }
-    50% {
-        transform: translateY(-40px) scale(1.6);
-    }
-}
-
-/* Olhos mexendo */
-@keyframes look {
-    0%, 100% { transform: translate(0,0); }
-    25% { transform: translate(2px,1px); }
-    50% { transform: translate(-2px,1px); }
-    75% { transform: translate(1px,-1px); }
-}
-
-/* Barbatanas */
-@keyframes finMove {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(20deg); }
-}
-
-/* Texto animado */
-.status::after {
-    content: "Inspire...";
-    animation: textUpdate 8s infinite;
-}
-
-@keyframes textUpdate {
-    0%, 100% { content: "Expire devagar..."; opacity: 0.6; }
-    40%, 60% { content: "Inspire profundamente..."; opacity: 1; }
-}
-</style>
+        @keyframes textUpdate {
+            0%, 100% { content: "Expire devagar..."; opacity: 0.5; }
+            40%, 60% { content: "Inspire profundamente..."; opacity: 1; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-    <div class="pufferfish">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="mouth"></div>
-
-        <div class="fin left"></div>
-        <div class="fin right"></div>
-
-        <!-- Espinhos -->
-        <div class="spike"></div>
-        <div class="spike"></div>
-        <div class="spike"></div>
-        <div class="spike"></div>
-        <div class="spike"></div>
+    <div class="container">
+        <div class="pufferfish">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="fin left"></div>
+            <div class="fin right"></div>
+        </div>
+        <div class="instruction status"></div>
     </div>
 
-    <div class="instruction status"></div>
-</div>
-
-<script>
-const fish = document.querySelector('.pufferfish');
-
-// desacelera respiração
-setTimeout(() => {
-    fish.style.animationDuration = '10s';
-}, 30000);
-</script>
-
+    <script>
+        // Você pode usar JS para mudar a velocidade conforme o usuário se acalma
+        const fish = document.querySelector('.pufferfish');
+        
+        // Exemplo: Tornar a respiração ainda mais lenta após 30 segundos
+        setTimeout(() => {
+            fish.style.animationDuration = '10s';
+            console.log("Ritmo acalmado.");
+        }, 30000);
+    </script>
 </body>
 </html>
